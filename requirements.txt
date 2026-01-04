@@ -1,0 +1,13 @@
+# requirements.txt
+requests==2.31.0
+colorama==0.4.6
+urllib3==1.26.16
+cryptography==41.0.7
+beautifulsoup4==4.12.2
+lxml==4.9.3
+pyOpenSSL==23.2.0
+urllib3==1.26.16
+soupsieve==2.5
+charset-normalizer==3.3.2
+certifi==2023.11.17
+idna==3.6
