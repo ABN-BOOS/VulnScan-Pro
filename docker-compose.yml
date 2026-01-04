@@ -1,0 +1,44 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  vulnscan-pro:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vulnscan-pro
+    volumes:
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+      - SCAN_MODE=professional
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+  vulnscan-advanced:
+    build:
+      context: .
+      dockerfile: Dockerfile.advanced
+    container_name: vulnscan-advanced
+    volumes:
+      - ./reports:/app/reports
+      - ./scan-config:/app/config
+    environment:
+      - PYTHONUNBUFFERED=1
+      - SCAN_MODE=advanced
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  vulnscan-scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vulnscan-scheduler
+    volumes:
+      - ./reports:/app/reports
+      - ./schedules:/app/schedules
+    command: ["python", "scheduler.py"]
+    restart: unless-stopped
